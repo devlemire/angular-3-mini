@@ -13,6 +13,20 @@ In this project, we'll implement routing into an Angular application. You'll not
 
 ### Summary
 
+In this step, we'll create a container where the routing HTML will live. We'll also add some static HTML for navigating between routes.
+
+## Step 2
+
+### Summary
+
+In this step, we'll inject `ui.router` into our Angular application and define the available routes.
+
+## Step 3
+
+### Summary
+
+In this step, we'll modify the products feature to display data based on what page the user is on.
+
 ## Contributions
 
 If you see a problem or a typo, please fork, make the necessary changes, and create a pull request so we can review your changes and merge them into the master repo and branch.
