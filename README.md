@@ -15,6 +15,57 @@ In this project, we'll implement routing into an Angular application. You'll not
 
 In this step, we'll create a container where the routing HTML will live. We'll also add some static HTML for navigating between routes.
 
+### Instructions
+
+* Above your `scripts` tags in the `body`, create a new `div` with a class of `menu`.
+  * Inside of `menu` and a `ul` element with three `li` elements:
+  * Each `li` element should contain an `a` element with a `ui-sref` attribute that equals the name of the feature.
+  * The `li` for the products feature should have a nested `ul` element with an `li` for `Shoes` and `Socks`.
+    * The `ui-sref` attribute on these `li` elements should use an object with an `id` property that equals `Shoes` or `Socks`.
+* Under the `div` with a class of `menu` add a new `div` with a class of `view-container`.
+  * Inside of `view-container` add a `div` element with an attribute `ui-view` that doesn't equal anything
+
+### Solution
+
+<details>
+
+<summary> <code> index.html </code> </summary>
+
+```html
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <title>Routing App</title>
+    <link type="text/css" rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="menu">
+      <ul>
+        <li><a ui-sref="home">Home</a></li>
+        <li>
+          Products
+          <ul>
+            <li><a ui-sref="products({id: 'shoes'})">Shoes</a></li>
+            <li><a ui-sref="products({id: 'socks'})">Socks</a></li>
+          </ul>
+        </li>
+        <li><a ui-sref="settings"> Settings </a></li>
+      </ul>
+    </div>
+
+    <div class="view-container">
+      <div ui-view></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
+```
+
+</details> 
+
 ## Step 2
 
 ### Summary
