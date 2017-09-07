@@ -17,6 +17,7 @@ In this step, we'll create a container where the routing HTML will live. We'll a
 
 ### Instructions
 
+* Open `index.html`.
 * Above your `scripts` tags in the `body`, create a new `div` with a class of `menu`.
   * Inside of `menu` and a `ul` element with three `li` elements:
   * Each `li` element should contain an `a` element with a `ui-sref` attribute that equals the name of the feature.
@@ -71,6 +72,55 @@ In this step, we'll create a container where the routing HTML will live. We'll a
 ### Summary
 
 In this step, we'll inject `ui.router` into our Angular application and define the available routes.
+
+### Instructions
+
+* Open `js/app.js`.
+* Inject `ui.router` into `myApp`.
+* Chain a `.config` to `myApp` that uses an anonymous function.
+  * Just like you would for a `controller` or `service`.
+* Inject `$stateProvider` and `$urlRouterProvider` into the anonymous function.
+* Call `$stateProvider` and chain a `.state` for each feature route ( hint: there should only be three ).
+  * `.state` should be invoked and passed two parameters:
+    * The first parameter is the `string` of the route. This much match the strings used in the previous step.
+      * Hint: `ui-sref`.
+    * The second parameter is and object that has three properties:
+      * url: A string that specifies the route
+      * templateUrl: A string that is a file path to the HTML. 
+      * controller: A string that specifies what controller the HTML should use.
+* Call `$urlRouterProvider` and chain a `.otherwise` and pass in `'/'`.
+
+### Solution
+
+<details>
+
+<summary> <code> js/app.js </code> </summary>
+
+```js
+angular.module('myApp', ['ui.router']).config( function( $stateProvider, $urlRouterProvider ) {
+  $stateProvider
+    .state('home', {
+      url: '/',
+      templateUrl: 'js/home/homeTmpl.html',
+      controller: 'homeCtrl'
+    })
+    .state('products', {
+      url: '/products/:id',
+      templateUrl: 'js/products/productsTmpl.html',
+      controller: 'productsCtrl'
+    })
+    .state('settings', {
+      url: '/settings',
+      templateUrl: 'js/settings/settingsTmpl.html',
+      controller: 'settingsCtrl'
+    });
+
+  $urlRouterProvider
+    .otherwise('/');
+});
+```
+
+</details>
 
 ## Step 3
 
