@@ -6,7 +6,9 @@ In this project, we'll implement routing into an Angular application. You'll not
 
 ## Setup
 
-* Fork and clone this repository
+* Fork and clone this repository.
+* Run `sudo npm i -g live-server`.
+* `cd` into the project directory and run `live-server ./`.
 * Take a minute to familiarize yourself with the file structure.
 
 ## Step 1
@@ -60,7 +62,7 @@ In this step, we'll create a container where the routing HTML will live. We'll a
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
-    <script src="js/app.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
   </body>
 </html>
 ```
@@ -127,6 +129,96 @@ angular.module('myApp', ['ui.router']).config( function( $stateProvider, $urlRou
 ### Summary
 
 In this step, we'll modify the products feature to display data based on what page the user is on.
+
+### Instructions
+
+* Open `js/products/productsCtrl.js`.
+* Create a new Angular controller called `productsCtrl`:
+  * Inject `$scope`, `$stateParams`, and `productsSrvc`.
+* Add a new conditional to see if `id` on `$stateParams` is either `'shoes'` or `'socks'`.
+  * If it is `'shoes'` create a new `$scope` variable called `productData` and set it equal to `productsSrvc.shoeData`.
+  * If it is `'socks'` create a new `$scope` variable called `productData` and set it equal to `productsSrvc.sockData`.
+* Open `js/products/productsTmpl.html`.
+* Add a new `div` element that use `ng-repeat` on `$scope.productData`.
+  * Add three `p` elements inside the div to show the value of `type`, `color`, and `size`.
+* Open `index.html`.
+  * Include new `script` tags for the `productsCtrl` and `productsSrvc` javascript files.
+
+### Solution
+
+<details>
+
+<summary> <code> js/products/productsCtrl.js </code> </summary>
+
+```js
+angular.module('myApp').controller('productsCtrl', function( $scope, $stateParams, productsSrvc ) {
+  if ( $stateParams.id === 'shoes' ) {
+    $scope.productData = productsSrvc.shoeData;
+  } else if ( $stateParams.id === 'socks' ) {
+    $scope.productData = productsSrvc.sockData;
+  }
+});
+```
+
+</details>
+
+<details>
+
+<summary> <code> js/products/productsTmpl.html </code> </summary>
+
+```html
+<h1> Product Page </h1>
+<div ng-repeat="product in productData">
+  <p>Type: {{ product.type }}</p>
+  <p>Color: {{ product.color }}</p>
+  <p>Size: {{ product.size }}</p>
+</div>
+```
+
+</details>
+
+<details>
+
+<summary> <code> index.html </code> </summary>
+
+```html
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <title>Routing App</title>
+    <link type="text/css" rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="menu">
+      <ul>
+        <li><a ui-sref="home">Home</a></li>
+        <li>
+          Products
+          <ul>
+            <li><a ui-sref="products({id: 'shoes'})">Shoes</a></li>
+            <li><a ui-sref="products({id: 'socks'})">Socks</a></li>
+          </ul>
+        </li>
+        <li><a ui-sref="settings"> Settings </a></li>
+      </ul>
+    </div>
+
+    <div class="view-container">
+      <div ui-view></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/products/productsCtrl.js"></script>
+    <script type="text/javascript" src="js/products/productsSrvc.js"></script>
+  </body>
+</html>
+```
+
+</details>
+
 
 ## Contributions
 
